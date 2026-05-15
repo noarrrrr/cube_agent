@@ -1,30 +1,21 @@
-from scramble import generate_scramble
+#from scramble import generate_scramble
 
 solved_cube = {
-    "white": {1: "⬜", 2: "⬜", 3: "⬜", 4: "⬜", 5: "⬜", 6: "⬜", 7: "⬜", 8: "⬜", 9: "⬜"},
-    "yellow": {1: "🟨", 2: "🟨", 3: "🟨", 4: "🟨", 5: "🟨", 6: "🟨", 7: "🟨", 8: "🟨", 9: "🟨"},
-    "green": {1: "🟩", 2: "🟩", 3: "🟩", 4: "🟩", 5: "🟩", 6: "🟩", 7: "🟩", 8: "🟩", 9: "🟩"},
-    "blue": {1: "🟦", 2: "🟦", 3: "🟦", 4: "🟦", 5: "🟦", 6: "🟦", 7: "🟦", 8: "🟦", 9: "🟦"},
-    "red": {1: "🟥", 2: "🟥", 3: "🟥", 4: "🟥", 5: "🟥", 6: "🟥", 7: "🟥", 8: "🟥", 9: "🟥"},
-    "orange": {1: "🟧", 2: "🟧", 3: "🟧", 4: "🟧", 5: "🟧", 6: "🟧", 7: "🟧", 8: "🟧", 9: "🟧"},
+    "top": {1: "⬜", 2: "⬜", 3: "⬜", 4: "⬜", 5: "⬜", 6: "⬜", 7: "⬜", 8: "⬜", 9: "⬜"},
+    "bottom": {1: "🟨", 2: "🟨", 3: "🟨", 4: "🟨", 5: "🟨", 6: "🟨", 7: "🟨", 8: "🟨", 9: "🟨"},
+    "front": {1: "🟩", 2: "🟩", 3: "🟩", 4: "🟩", 5: "🟩", 6: "🟩", 7: "🟩", 8: "🟩", 9: "🟩"},
+    "back": {1: "🟦", 2: "🟦", 3: "🟦", 4: "🟦", 5: "🟦", 6: "🟦", 7: "🟦", 8: "🟦", 9: "🟦"},
+    "right": {1: "🟥", 2: "🟥", 3: "🟥", 4: "🟥", 5: "🟥", 6: "🟥", 7: "🟥", 8: "🟥", 9: "🟥"},
+    "left": {1: "🟧", 2: "🟧", 3: "🟧", 4: "🟧", 5: "🟧", 6: "🟧", 7: "🟧", 8: "🟧", 9: "🟧"},
 }
 
-default_orientaion = {
-    "top": "white",
-    "left": "orange",
-    "front": "green",
-    "right": "red",
-    "back": "blue",
-    "bottom": "yellow"
-}
-
-def print_cube(cube, orientation=default_orientaion):
+def print_cube(cube):
     for stkr in range(1, 8, 3):
-        print(f"      {cube[orientation["top"]][stkr+0]}{cube[orientation["top"]][stkr+1]}{cube[orientation["top"]][stkr+2]}")
+        print(f"      {cube["top"][stkr+0]}{cube["top"][stkr+1]}{cube["top"][stkr+2]}")
     for stkr in range(1, 8, 3):
-        print(f"{cube[orientation["left"]][stkr+0]}{cube[orientation["left"]][stkr+1]}{cube[orientation["left"]][stkr+2]}{cube[orientation["front"]][stkr+0]}{cube[orientation["front"]][stkr+1]}{cube[orientation["front"]][stkr+2]}{cube[orientation["right"]][stkr+0]}{cube[orientation["right"]][stkr+1]}{cube[orientation["right"]][stkr+2]}{cube[orientation["back"]][stkr+0]}{cube[orientation["back"]][stkr+1]}{cube[orientation["back"]][stkr+2]}")
+        print(f"{cube["left"][stkr+0]}{cube["left"][stkr+1]}{cube["left"][stkr+2]}{cube["front"][stkr+0]}{cube["front"][stkr+1]}{cube["front"][stkr+2]}{cube["right"][stkr+0]}{cube["right"][stkr+1]}{cube["right"][stkr+2]}{cube["back"][stkr+0]}{cube["back"][stkr+1]}{cube["back"][stkr+2]}")
     for stkr in range(1, 8, 3):
-        print(f"      {cube[orientation["bottom"]][stkr+0]}{cube[orientation["bottom"]][stkr+1]}{cube[orientation["bottom"]][stkr+2]}")
+        print(f"      {cube["bottom"][stkr+0]}{cube["bottom"][stkr+1]}{cube["bottom"][stkr+2]}")
 
 
 def cycle_stickers(cube, stickers, side=False):
@@ -44,26 +35,50 @@ def cycle_stickers(cube, stickers, side=False):
     return cube
 
     
+def move_top(cube):
+    side_stickers = [("left", 1), ("left", 2), ("left", 3), ("front", 1), ("front", 2), ("front", 3), ("right", 1), ("right", 2), ("right", 3), ("back", 1), ("back", 2), ("back", 3)]
+    cycle_stickers(cube, side_stickers, side=True)
+    top_stickers = [("top", 4), ("top", 7), ("top", 8), ("top", 9), ("top", 6), ("top", 3), ("top", 2), ("top", 1)]
+    cycle_stickers(cube, top_stickers)
 
-def move_white(cube):
-    side_stickers = [("orange", 1), ("orange", 2), ("orange", 3), ("green", 1), ("green", 2), ("green", 3), ("red", 1), ("red", 2), ("red", 3), ("blue", 1), ("blue", 2), ("blue", 3)]
-    cube = cycle_stickers(cube, side_stickers, side=True)
-    top_stickers = [("white", 4), ("white", 7), ("white", 8), ("white", 9), ("white", 6), ("white", 3), ("white", 2), ("white", 1)]
-    cube = cycle_stickers(cube, top_stickers)
-    return cube
+def move_bottom(cube):
+    side_stickers = [("back", 9), ("back", 8), ("back", 7), ("right", 9), ("right", 8), ("right", 7), ("front", 9), ("front", 8), ("front", 7), ("left", 9), ("left", 8), ("left", 7)]
+    cycle_stickers(cube, side_stickers, side=True)
+    top_stickers = [("bottom", 4), ("bottom", 7), ("bottom", 8), ("bottom", 9), ("bottom", 6), ("bottom", 3), ("bottom", 2), ("bottom", 1)]
+    cycle_stickers(cube, top_stickers)
 
-def move_red(cube):
-    side_stickers = [("white", 3), ("white", 6), ("white", 9), ("green", 3), ("green", 6), ("green", 9), ("yellow", 3), ("yellow", 6), ("yellow", 9), ("blue", 7), ("blue", 4), ("blue", 1)]
-    cube = cycle_stickers(cube, side_stickers, side=True)
-    top_stickers = [("red", 4), ("red", 7), ("red", 8), ("red", 9), ("red", 6), ("red", 3), ("red", 2), ("red", 1)]
-    cube = cycle_stickers(cube, top_stickers)
-    return cube
+def move_right(cube):
+    side_stickers = [("top", 3), ("top", 6), ("top", 9), ("front", 3), ("front", 6), ("front", 9), ("bottom", 3), ("bottom", 6), ("bottom", 9), ("back", 7), ("back", 4), ("back", 1)]
+    cycle_stickers(cube, side_stickers, side=True)
+    top_stickers = [("right", 4), ("right", 7), ("right", 8), ("right", 9), ("right", 6), ("right", 3), ("right", 2), ("right", 1)]
+    cycle_stickers(cube, top_stickers)
+
+def move_left(cube):
+    side_stickers = [("bottom", 7), ("bottom", 4), ("bottom", 1), ("front", 7), ("front", 4), ("front", 1), ("top", 7), ("top", 4), ("top", 1), ("back", 3), ("back", 6), ("back", 9)]
+    cycle_stickers(cube, side_stickers, side=True)
+    top_stickers = [("left", 4), ("left", 7), ("left", 8), ("left", 9), ("left", 6), ("left", 3), ("left", 2), ("left", 1)]
+    cycle_stickers(cube, top_stickers)
+
+def move_front(cube):
+    side_stickers = [("bottom", 1), ("bottom", 2), ("bottom", 3), ("right", 7), ("right", 4), ("right", 1), ("top", 9), ("top", 8), ("top", 7), ("left", 3), ("left", 6), ("left", 9)]
+    cycle_stickers(cube, side_stickers, side=True)
+    top_stickers = [("front", 4), ("front", 7), ("front", 8), ("front", 9), ("front", 6), ("front", 3), ("front", 2), ("front", 1)]
+    cycle_stickers(cube, top_stickers)
+
+def move_back(cube):
+    side_stickers = [("left", 7), ("left", 4), ("left", 1), ("top", 1), ("top", 2), ("top", 3), ("right", 3), ("right", 6), ("right", 9), ("bottom", 9), ("bottom", 8), ("bottom", 7)]
+    cycle_stickers(cube, side_stickers, side=True)
+    top_stickers = [("back", 4), ("back", 7), ("back", 8), ("back", 9), ("back", 6), ("back", 3), ("back", 2), ("back", 1)]
+    cycle_stickers(cube, top_stickers)
 
 def test():
     cube = solved_cube
-    for i in range(3):
-        move_red(cube)
-        move_white(cube)
+    move_back(cube)
+    move_top(cube)
+    move_right(cube)
+    move_left(cube)
+    move_bottom(cube)
+    move_front(cube)
     print_cube(cube)
 
 test()

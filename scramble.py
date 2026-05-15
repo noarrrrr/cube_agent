@@ -1,9 +1,9 @@
 import random
 
 notation = [
-    ["R","R'","R2","L","L'","L2"],
-    ["U","U'","U2","D","D'","D2"],
-    ["F","F'","F2","B","B'","B2"]
+    ["R","R'","R2","R2","L","L'","L2","L2"],
+    ["U","U'","U2","U2","D","D'","D2","D2"],
+    ["F","F'","F2","F2","B","B'","B2","B2"]
 ]
 
 def generate_scramble(move_count):
