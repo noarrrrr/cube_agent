@@ -6,13 +6,13 @@ notation = [
     ["F","F'","F2","B","B'","B2"]
 ]
 
-def generate_scramble():
+def generate_scramble(move_count):
     available_moves = notation
     scramble = []
     last_move = "nothin"
     last_move_axis = "nothin"
     axis_uses = 0
-    for i in range(17):
+    for i in range(move_count):
         axis = random.choice(notation)
         move = random.choice(axis)
         while move[0] == last_move[0]:
@@ -28,4 +28,4 @@ def generate_scramble():
         last_move_axis = axis
     print(" ".join(scramble))
 
-generate_scramble()
+generate_scramble(17)
