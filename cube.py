@@ -1,4 +1,4 @@
-#from scramble import generate_scramble
+from scramble import generate_scramble
 
 solved_cube = {
     "top": {1: "⬜", 2: "⬜", 3: "⬜", 4: "⬜", 5: "⬜", 6: "⬜", 7: "⬜", 8: "⬜", 9: "⬜"},
@@ -71,14 +71,70 @@ def move_back(cube):
     top_stickers = [("back", 4), ("back", 7), ("back", 8), ("back", 9), ("back", 6), ("back", 3), ("back", 2), ("back", 1)]
     cycle_stickers(cube, top_stickers)
 
+
+def apply_moves(cube, moves):
+    for move in moves:
+        if move == "R":
+            move_right(cube)
+        elif move == "R'":
+            for _ in range(3):
+                move_right(cube)
+        elif move == "R2":
+            for _ in range(2):
+                move_right(cube)
+        
+        elif move == "L":
+            move_left(cube)
+        elif move == "L'":
+            for _ in range(3):
+                move_left(cube)
+        elif move == "L2":
+            for _ in range(2):
+                move_left(cube)
+
+        elif move == "U":
+            move_top(cube)
+        elif move == "U'":
+            for _ in range(3):
+                move_top(cube)
+        elif move == "U2":
+            for _ in range(2):
+                move_top(cube)
+
+        elif move == "D":
+            move_bottom(cube)
+        elif move == "D'":
+            for _ in range(3):
+                move_bottom(cube)
+        elif move == "D2":
+            for _ in range(2):
+                move_bottom(cube)
+        
+        elif move == "F":
+            move_front(cube)
+        elif move == "F'":
+            for _ in range(3):
+                move_front(cube)
+        elif move == "F2":
+            for _ in range(2):
+                move_front(cube)
+
+        elif move == "B":
+            move_back(cube)
+        elif move == "B'":
+            for _ in range(3):
+                move_back(cube)
+        elif move == "B2":
+            for _ in range(2):
+                move_back(cube)
+
+
 def test():
     cube = solved_cube
-    move_back(cube)
-    move_top(cube)
-    move_right(cube)
-    move_left(cube)
-    move_bottom(cube)
-    move_front(cube)
+    scramble = generate_scramble(17)
+    print_cube(cube)
+    print(f"Applying scramble:\n{" ".join(scramble)}")
+    apply_moves(cube, scramble)
     print_cube(cube)
 
 test()

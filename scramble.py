@@ -26,6 +26,6 @@ def generate_scramble(move_count):
                 available_moves.remove(axis)
         last_move = move
         last_move_axis = axis
-    print(" ".join(scramble))
+    return scramble
 
-generate_scramble(17)
+#print(" ".join(generate_scramble(17))
