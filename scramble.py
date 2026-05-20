@@ -1,4 +1,5 @@
 import random
+import copy
 
 scr_notation = [
     ["R","R'","R2","R2","L","L'","L2","L2"],
@@ -14,11 +15,10 @@ notation = [
 
 
 def generate_scramble(move_count): #producing ABA patterns
-    available_moves = scr_notation
+    available_moves = copy.copy(scr_notation)
     scramble = []
     last_move = "nothin"
     last_move_axis = "nothin"
-    axis_uses = 0
     for i in range(move_count):
         axis = random.choice(available_moves)
         move = random.choice(axis)
@@ -26,11 +26,9 @@ def generate_scramble(move_count): #producing ABA patterns
             move = random.choice(axis)
         scramble.append(move)
         if len(available_moves) < 3:
-            available_moves = scr_notation
+            available_moves = copy.copy(scr_notation)
         elif axis == last_move_axis:
-            axis_uses += 1
-            if axis_uses == 2:
-                available_moves.remove(axis)
+            available_moves.remove(axis)
         last_move = move
         last_move_axis = axis
     return scramble

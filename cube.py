@@ -27,6 +27,23 @@ def print_cube(cube):
       {stkrs[cube[6]]}{stkrs[cube[7]]}{stkrs[cube[8]]}""")
     
 
+def print_cube_transformation(cube, moves):
+    tube = copy.copy(cube)
+    apply_moves(tube, moves)
+    print(f"""      {stkrs[cube[9]]}{stkrs[cube[10]]}{stkrs[cube[11]]}                         {stkrs[tube[9]]}{stkrs[tube[10]]}{stkrs[tube[11]]}
+      {stkrs[cube[12]]}{stkrs[cube[13]]}{stkrs[cube[14]]}                         {stkrs[tube[12]]}{stkrs[tube[13]]}{stkrs[tube[14]]}
+      {stkrs[cube[15]]}{stkrs[cube[16]]}{stkrs[cube[17]]}                         {stkrs[tube[15]]}{stkrs[tube[16]]}{stkrs[tube[17]]}
+{stkrs[cube[18]]}{stkrs[cube[19]]}{stkrs[cube[20]]}{stkrs[cube[36]]}{stkrs[cube[37]]}{stkrs[cube[38]]}{stkrs[cube[27]]}{stkrs[cube[28]]}{stkrs[cube[29]]}{stkrs[cube[45]]}{stkrs[cube[46]]}{stkrs[cube[47]]}       {stkrs[tube[18]]}{stkrs[tube[19]]}{stkrs[tube[20]]}{stkrs[tube[36]]}{stkrs[tube[37]]}{stkrs[tube[38]]}{stkrs[tube[27]]}{stkrs[tube[28]]}{stkrs[tube[29]]}{stkrs[tube[45]]}{stkrs[tube[46]]}{stkrs[tube[47]]}
+{stkrs[cube[21]]}{stkrs[cube[22]]}{stkrs[cube[23]]}{stkrs[cube[39]]}{stkrs[cube[40]]}{stkrs[cube[41]]}{stkrs[cube[30]]}{stkrs[cube[31]]}{stkrs[cube[32]]}{stkrs[cube[48]]}{stkrs[cube[49]]}{stkrs[cube[50]]}  -->  {stkrs[tube[21]]}{stkrs[tube[22]]}{stkrs[tube[23]]}{stkrs[tube[39]]}{stkrs[tube[40]]}{stkrs[tube[41]]}{stkrs[tube[30]]}{stkrs[tube[31]]}{stkrs[tube[32]]}{stkrs[tube[48]]}{stkrs[tube[49]]}{stkrs[tube[50]]}
+{stkrs[cube[24]]}{stkrs[cube[25]]}{stkrs[cube[26]]}{stkrs[cube[42]]}{stkrs[cube[43]]}{stkrs[cube[44]]}{stkrs[cube[33]]}{stkrs[cube[34]]}{stkrs[cube[35]]}{stkrs[cube[51]]}{stkrs[cube[52]]}{stkrs[cube[53]]}       {stkrs[tube[24]]}{stkrs[tube[25]]}{stkrs[tube[26]]}{stkrs[tube[42]]}{stkrs[tube[43]]}{stkrs[tube[44]]}{stkrs[tube[33]]}{stkrs[tube[34]]}{stkrs[tube[35]]}{stkrs[tube[51]]}{stkrs[tube[52]]}{stkrs[tube[53]]}
+      {stkrs[cube[0]]}{stkrs[cube[1]]}{stkrs[cube[2]]}                         {stkrs[tube[0]]}{stkrs[tube[1]]}{stkrs[tube[2]]}
+      {stkrs[cube[3]]}{stkrs[cube[4]]}{stkrs[cube[5]]}                         {stkrs[tube[3]]}{stkrs[tube[4]]}{stkrs[tube[5]]}
+      {stkrs[cube[6]]}{stkrs[cube[7]]}{stkrs[cube[8]]}                         {stkrs[tube[6]]}{stkrs[tube[7]]}{stkrs[tube[8]]}
+""")      
+      
+
+    
+
 
     
 def move_top(cube):
@@ -167,15 +184,16 @@ def reverse_moves(cube, moves):
                 move_back(cube)
 
 
-def find_cross(cube):
-    solution = []
+def find_cross():
+    scramble = generate_scramble(17)
+    cube = copy.copy(solved_cube)
+    apply_moves(cube, scramble)
     for depth in range(1, 6):
-        print(f"Searching {depth} moves deep")
         possible_solutions = generate_bf_moves(depth)
         for moves in possible_solutions:
             if check_for_cross(cube, moves):
-                return moves
-    return "bad scramble"
+                return scramble, moves
+    return find_cross()
 
 def check_for_cross(cube, moves):
     apply_moves(cube, moves)
