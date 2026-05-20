@@ -168,27 +168,14 @@ def reverse_moves(cube, moves):
 
 
 def find_cross(cube):
-    solution_found = False
-    solution_count = 0
+    solution = []
     for depth in range(1, 6):
         print(f"Searching {depth} moves deep")
         possible_solutions = generate_bf_moves(depth)
         for moves in possible_solutions:
             if check_for_cross(cube, moves):
-                if solution_count < 3:
-                    print(f"Found Solution!\n{" ".join(moves)}")
-                    apply_moves(cube, moves)
-                    print_cube(cube)
-                    reverse_moves(cube, moves)
-                    solution_count += 1
-                    solution_found = True
-                else:
-                    return
-        if solution_found == True:
-            return
-
-        
-    print("Something's amiss")
+                return moves
+    return "bad scramble"
 
 def check_for_cross(cube, moves):
     apply_moves(cube, moves)
@@ -220,4 +207,4 @@ def test():
     print("Searching for White Cross...")
     cProfile.run(f"find_cross({cube})")
 
-test()
+#test()

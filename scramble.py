@@ -20,7 +20,7 @@ def generate_scramble(move_count): #producing ABA patterns
     last_move_axis = "nothin"
     axis_uses = 0
     for i in range(move_count):
-        axis = random.choice(scr_notation)
+        axis = random.choice(available_moves)
         move = random.choice(axis)
         while move[0] == last_move[0]:
             move = random.choice(axis)
