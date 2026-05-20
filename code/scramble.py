@@ -58,9 +58,3 @@ def generate_bf_moves(move_depth, movesets=None):
                     for move in axis:
                         new_movesets.append(moveset + [move])
         return generate_bf_moves(move_depth - 1, new_movesets)
-
-
-
-#print(len(generate_bf_moves(5)))
-
-#print(" ".join(generate_scramble(17)))
